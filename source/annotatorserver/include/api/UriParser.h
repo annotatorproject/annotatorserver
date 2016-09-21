@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Annotator Team
 #pragma once
 
 #include <string>
@@ -9,11 +10,8 @@ class UriParser
 public:
     UriParser(std::string uri);
 
-    bool isPlugins();
-    bool isPluginInstances();
-    bool isHandlers();
-    bool isHandlerInstances();
-    bool isConnections();
+    bool isAnnotations();
+    bool isAnnotation();
 
     std::string getParameter(std::string key, std::string defaultValue);
 protected:

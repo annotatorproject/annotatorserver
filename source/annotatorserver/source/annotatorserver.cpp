@@ -1,5 +1,4 @@
 // Copyright (c) 2016 Annotator Team
-
 #include "annotatorserver.h"
 
 #include "RequestHandlerFactory.h"

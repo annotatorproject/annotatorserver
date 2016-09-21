@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Annotator Team
 #include "ResourceHandler.h"
 
 #include <Poco/Net/HTTPServerRequest.h>

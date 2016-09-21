@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Annotator Team
 #pragma once
 
 #include <AnnotatorLib/Project.h>

@@ -1,22 +1,16 @@
+// Copyright (c) 2016 Annotator Team
 #include "api/UriParser.h"
 
 UriParser::UriParser(std::string uri) : uri(uri) {}
 
-bool UriParser::isPlugins() { return uri.getPath() == "/api/plugins"; }
-
-bool UriParser::isPluginInstances() {
-  return uri.getPath() == "/api/plugins/instances";
-}
-
-bool UriParser::isHandlers() { return uri.getPath() == "/api/handlers"; }
-
-bool UriParser::isHandlerInstances() {
-    return uri.getPath() == "/api/handlers/instances";
-}
-
-bool UriParser::isConnections()
+bool UriParser::isAnnotations()
 {
-    return uri.getPath() == "/api/connections";
+    return uri.getPath() == "/api/annotations";
+}
+
+bool UriParser::isAnnotation()
+{
+    return uri.getPath() == "/api/annotation";
 }
 
 std::string UriParser::getParameter(std::string key, std::string defaultValue) {

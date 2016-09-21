@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Annotator Team
 #include "RequestHandlerFactory.h"
 #include "Index.h"
 #include "ResourceHandler.h"

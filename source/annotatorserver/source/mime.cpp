@@ -1,3 +1,4 @@
+// Copyright (c) 2016 Annotator Team
 #include "mime.h"
 
 #include <vector>
