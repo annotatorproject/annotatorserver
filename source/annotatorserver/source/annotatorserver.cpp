@@ -68,7 +68,6 @@ int AnnotatorServer::main(const std::vector<std::string> &args) {
 
     unsigned short port = (unsigned short)config().getInt("port", DefaultPort);
     _resroot = config().getString("resroot", ResourceRoot);
-    std::cout << _resroot << std::endl;
 
     HTTPServerParams *params = new HTTPServerParams;
     params->setServerName(ANNOTATORSERVER_PROJECT_NAME);

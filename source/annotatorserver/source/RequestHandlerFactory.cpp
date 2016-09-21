@@ -1,6 +1,7 @@
 #include "RequestHandlerFactory.h"
 #include "Index.h"
 #include "ResourceHandler.h"
+#include "imagehandler.h"
 #include "api/ApiHandler.h"
 
 #include <Poco/Net/HTTPRequestHandler.h>
@@ -39,7 +40,9 @@ Poco::Net::HTTPRequestHandler *RequestHandlerFactory::createRequestHandler(
     return new ResourceHandler(_docroot, _resroot);
   } else if (uri.find("/api/") == 0) {
     return new ApiHandler();
-  }
+  } else if (uri.find("/image/") == 0) {
+      return new ImageHandler(_project);
+    }
 
   return nullptr;
 }
