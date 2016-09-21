@@ -78,7 +78,7 @@
         </div>
 
         <div id="annotationscontainer">
-        <ul id="annotationslist"></ul>
+        <ul id="annotationslist" class="list-group"></ul>
         </div>
       </div>
 

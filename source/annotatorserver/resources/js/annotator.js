@@ -2,6 +2,7 @@ var videoposition = 1;
 var videowidth = 1;
 var videoheight = 1;
 var currentframe = new Image();
+var annotationslist = $('#annotationslist');
 /*  */
 
 
@@ -11,31 +12,38 @@ window.onload = reloadFrame(videoposition);
 function reloadAnnotations() {
   videowidth = currentframe.width;
   videoheight = currentframe.height;
-  var c=document.getElementById("videocanvas");
-  var ctx=c.getContext("2d");
   
-  ctx.drawImage(currentframe, 0, 0);
   var canvas = document.getElementById('videocanvas');
   var context = canvas.getContext('2d');
 
-  context.beginPath();
-  context.rect(188, 50, 200, 100);
-  context.fillStyle = 'yellow';
-  context.fill();
-  context.lineWidth = 7;
-  context.strokeStyle = 'black';
-  context.stroke();
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(currentframe, 0, 0);
+  annotationslist.empty();
 
-  $.get("/api/annotations?frame="+videoposition, function(data, status){
-	
-        });
+  $.getJSON( "/api/annotations?frame="+videoposition, function( data ) {
+	$.each( data.annotations, function( i, annotation ) {
+		addListAnnotation(annotation);
+		drawAnnotations(annotation);
+	});
+  });
+
 
 }
 
 function drawAnnotations(annotation){
+var canvas = document.getElementById('videocanvas');
+  var context = canvas.getContext('2d');
+  context.beginPath();
+  context.rect(annotation.x, annotation.y, annotation.w, annotation.h);
+  context.fillStyle = "rgba(100, 255, 100, 0.3)";
+  context.fill();
+  context.lineWidth = 3;
+  context.strokeStyle = 'black';
+  context.stroke();
 }
 
 function addListAnnotation(annotation){
+annotationslist.prepend('<li class="list-group-item"> ' + annotation.name + '</li>');
 }
 
 function reloadFrame(frame){
@@ -85,5 +93,6 @@ $('#previous').on('click', function (e) {
 $('#next').on('click', function (e) {
   nextFrame(1);
 })
+
 
 

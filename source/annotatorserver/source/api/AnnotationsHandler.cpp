@@ -103,7 +103,7 @@ Object::Ptr AnnotationsHandler::getAnnotations(unsigned long id) {
       pArr->add(getAnnotation(annotation));
     }
   }
-  pAnnotations->set("annotatoins", pArr);
+  pAnnotations->set("annotations", pArr);
   return pAnnotations;
 }
 
