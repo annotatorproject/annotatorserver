@@ -32,12 +32,13 @@ Poco::Net::HTTPRequestHandler *RequestHandlerFactory::createRequestHandler(
   // routing
 
   if (uri == "/") {
-    return new Index;
-  } else if (uri.find("/css/") == 0) {
+    // return new Index; ! We use index.html file !
     return new ResourceHandler(_docroot, _resroot);
-  } else if (uri.find("/js/") == 0) {
+  } else if (uri.find("/styles/") == 0) {
     return new ResourceHandler(_docroot, _resroot);
-  } else if (uri.find("/fonts/") == 0) {
+  } else if (uri.find("/app/") == 0) {
+    return new ResourceHandler(_docroot, _resroot);
+  } else if (uri.find("/node_modules/") == 0) {
     return new ResourceHandler(_docroot, _resroot);
   } else if (uri.find("/api/") == 0) {
     return new ApiHandler();
