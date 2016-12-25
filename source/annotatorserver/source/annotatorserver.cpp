@@ -80,6 +80,8 @@ int AnnotatorServer::main(const std::vector<std::string> &args) {
                    params);
     // start the HTTPServer
     srv.start();
+    std::cout << "Serving on Port: " << std::to_string(srv.port()) << std::endl;
+    std::cout << "Press CTRL-C to quit." << std::endl;
     // wait for CTRL-C or kill
     waitForTerminationRequest();
     // Stop the HTTPServer
