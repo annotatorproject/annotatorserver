@@ -2,14 +2,14 @@ var videoposition = 0
 var videowidth = 1
 var videoheight = 1
 
-var renderer = PIXI.autoDetectRenderer(800, 600)
+var renderer = PIXI.autoDetectRenderer(800, 600, {view: document.getElementById("videocanvas")})
 
 var Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite
 
-document.getElementById('videocanvas').appendChild(renderer.view)
+//document.getElementById('videocanvas').appendChild(renderer.view)
 var stage = new PIXI.Container()
 
 var annotationslist = $('#annotationslist')
@@ -55,10 +55,13 @@ function render(){
 }
 
 function reloadFrame (frame) {
-  var texture = PIXI.Texture.fromImage('/image/' + frame)
-  var sprite = new PIXI.Sprite(texture)
+  var texture = PIXI.Texture.fromImage('/image/' + frame);
+  var sprite = new PIXI.Sprite(texture);
+  
+  // clear 
+  for (var i = stage.children.length - 1; i >= 0; i--) {	stage.removeChild(stage.children[i]);};
 
-  stage.addChild(sprite)
+  stage.addChild(sprite);
   render();
 }
 
@@ -150,7 +153,6 @@ down.press = function () {
 }
 down.release = function () {}
 
-document.getElementById('videocanvas').appendChild(renderer.view)
 renderer.view.style.border = '1px dashed black'
 renderer.resize(800, 600)
 renderer.backgroundColor = 0x061639
