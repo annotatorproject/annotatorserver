@@ -21,7 +21,11 @@
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
-    "zone.js": "^0.7.4"
+    "zone.js": "^0.7.4",
+
+    "bootstrap": "latest",
+    "jquery": "latest",
+    "pixi.js": "latest"
   },
   "devDependencies": {
     "concurrently": "^3.0.0",
