@@ -40,12 +40,10 @@ constexpr const char *ResourceRoot = RESOURCES_ROOT;
 #endif
 constexpr const unsigned int DefaultPort = 8080;
 
-
 static std::shared_ptr<AnnotatorLib::Project> project;
 
-std::shared_ptr<AnnotatorLib::Project> AnnotatorServer::getProject()
-{
-    return project;
+std::shared_ptr<AnnotatorLib::Project> AnnotatorServer::getProject() {
+  return project;
 }
 
 void AnnotatorServer::initialize(Application &self) {

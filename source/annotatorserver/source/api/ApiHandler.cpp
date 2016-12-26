@@ -1,7 +1,7 @@
 // Copyright (c) 2016 Annotator Team
 #include "api/ApiHandler.h"
-#include "api/UriParser.h"
 #include "api/AnnotationsHandler.h"
+#include "api/UriParser.h"
 
 #include <Poco/File.h>
 #include <Poco/Net/HTTPServerRequest.h>
@@ -21,8 +21,8 @@ void ApiHandler::handleRequest(Poco::Net::HTTPServerRequest& request,
   UriParser uri(request.getURI());
 
   if (uri.isAnnotations() || uri.isAnnotation()) {
-      AnnotationsHandler annotationsHandler;
-      annotationsHandler.handleRequest(request, response);
+    AnnotationsHandler annotationsHandler;
+    annotationsHandler.handleRequest(request, response);
 
   } else {
     NotFoundHandler notFoundHandler;

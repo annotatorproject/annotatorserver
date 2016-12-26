@@ -1,28 +1,24 @@
 var videoposition = 0
-var videowidth = 1
-var videoheight = 1
+var videowidth = 800
+var videoheight = 600
 
-var renderer = PIXI.autoDetectRenderer(800, 600, {view: document.getElementById("videocanvas")})
+var currentImage = new Image()
+
+var renderer = PIXI.autoDetectRenderer(800, 600, {view: document.getElementById('videocanvas')})
 
 var Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   resources = PIXI.loader.resources,
-  Sprite = PIXI.Sprite
+  Sprite = PIXI.Sprite,
+  Texture = PIXI.Texture
 
-//document.getElementById('videocanvas').appendChild(renderer.view)
 var stage = new PIXI.Container()
 
 var annotationslist = $('#annotationslist')
 
+renderer.view.onclick = handleClick
+
 function reloadAnnotations () {
-  videowidth = currentframe.width
-  videoheight = currentframe.height
-
-  var canvas = document.getElementById('videocanvas')
-  var context = canvas.getContext('2d')
-
-  context.clearRect(0, 0, canvas.width, canvas.height)
-  context.drawImage(currentframe, 0, 0)
   annotationslist.empty()
 
   $.getJSON('/api/annotations?frame=' + videoposition, function (data) {
@@ -33,36 +29,46 @@ function reloadAnnotations () {
   })
 }
 
+/**
+ * draw annotation rect on canvas
+ */
 function drawAnnotations (annotation) {
-  var canvas = document.getElementById('videocanvas')
-  var context = canvas.getContext('2d')
-  context.beginPath()
-  context.rect(annotation.x, annotation.y, annotation.w, annotation.h)
-  context.fillStyle = 'rgba(100, 255, 100, 0.3)'
-  context.fill()
-  context.lineWidth = 3
-  context.strokeStyle = 'black'
-  context.stroke()
+  var graphics = new PIXI.Graphics()
+  graphics.lineStyle(3, 0xFF0000)
+  graphics.drawRect(annotation.x, annotation.y, annotation.w, annotation.h)
+  stage.addChild(graphics)
 }
 
 function addListAnnotation (annotation) {
   annotationslist.prepend('<li class="list-group-item"> ' + annotation.name + '</li>')
 }
 
-function render(){
-  requestAnimationFrame(render);
-  renderer.render(stage);
+function render () {
+  requestAnimationFrame(render)
+  renderer.resize(videowidth, videoheight)
+  renderer.render(stage)
 }
 
 function reloadFrame (frame) {
-  var texture = PIXI.Texture.fromImage('/image/' + frame);
-  var sprite = new PIXI.Sprite(texture);
-  
-  // clear 
-  for (var i = stage.children.length - 1; i >= 0; i--) {	stage.removeChild(stage.children[i]);};
+  currentImage.src = '/image/' + frame
+  currentImage.onload =
+    function () {
+      Texture = PIXI.Texture.fromImage(this.src)
+      videowidth = this.width
+      videoheight = this.height
+      Sprite = new PIXI.Sprite(Texture)
+      Sprite.interactive = true
+      // clear 
+      for (var i = stage.children.length - 1; i >= 0; i--) {	stage.removeChild(stage.children[i]);}
 
-  stage.addChild(sprite);
-  render();
+      stage.addChild(Sprite)
+      reloadAnnotations()
+      render()
+  }
+}
+
+function handleClick (event) {
+  // window.alert("click" +event.x + "" + stage.toLocal({'x': event.x, 'y':event.y}))
 }
 
 function previousFrame (steps) {
@@ -154,7 +160,7 @@ down.press = function () {
 down.release = function () {}
 
 renderer.view.style.border = '1px dashed black'
-renderer.resize(800, 600)
+renderer.resize(videowidth, videoheight)
 renderer.backgroundColor = 0x061639
 renderer.render(stage)
-reloadFrame(videoposition);
+reloadFrame(videoposition)

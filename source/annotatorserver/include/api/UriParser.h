@@ -5,15 +5,15 @@
 
 #include <Poco/URI.h>
 
-class UriParser
-{
-public:
-    UriParser(std::string uri);
+class UriParser {
+ public:
+  UriParser(std::string uri);
 
-    bool isAnnotations();
-    bool isAnnotation();
+  bool isAnnotations();
+  bool isAnnotation();
 
-    std::string getParameter(std::string key, std::string defaultValue);
-protected:
-    Poco::URI uri;
+  std::string getParameter(std::string key, std::string defaultValue);
+
+ protected:
+  Poco::URI uri;
 };

@@ -21,10 +21,10 @@ void ImageHandler::handleRequest(Poco::Net::HTTPServerRequest &request,
   cv::Mat image = project->getImageSet()->getImage(i);
 
   response.setChunkedTransferEncoding(false);
-  //response.set("Max-Age", "0");
-  //response.set("Expires", "0");
-  //response.set("Pragma", "no-cache");
-  //response.set("Cache-Control", "no-cache");
+  // response.set("Max-Age", "0");
+  // response.set("Expires", "0");
+  // response.set("Pragma", "no-cache");
+  // response.set("Cache-Control", "no-cache");
   response.setContentType("Content-Type: image/jpeg");
   std::ostream &ostr = response.send();
   std::vector<uchar> buffer;
